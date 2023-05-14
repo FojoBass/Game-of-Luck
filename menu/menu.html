@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../general.css">
+    <link rel="stylesheet" href="menu.css">
+    <title>GOL | Menu</title>
+</head>
+
+<body>
+    <div class="bg-vid">
+        <video src="/assests/videos/bg-vid.mp4" loop autoplay></video>
+        <audio class='music' src="/assests/music/forest-wind-and-birds-6881_2.mp3" autoplay loop></audio>
+    </div>
+    <h1>lucky</h1>
+
+    <main>
+        <div class="wrapper">
+            <a href="../main/main.html" class='hide' id='con'>continue</a>
+            <a href="../main/main.html" id='new'>new</a>
+            <a href="../about/about.html">credit</a>
+            <a href="../score/score.html">score</a>
+            <a href="#">sound</a>
+        </div>
+    </main>
+
+    <!-- Setting sect -->
+    <section class="settings-section hide">
+        <div class="container">
+            <div class="opts">
+                <div class="opt">
+                <input type="checkbox" name="settings" value='music' id="music" checked>
+                <label for="music">Music</label>
+            </div>
+
+            <div class="opt">
+                <input type="checkbox" name="settings" value='sfx' id="sfx" checked>
+                <label for="sfx">SFX</label>
+            </div>
+            </div>
+            <button class="apply-btn">apply</button>
+        </div>
+    </section>
+    <!-- End Setting sect -->
+
+    <!-- Loading Sect -->
+    <section id="loading-sect" >
+        <div class="bg-img">
+            <img src="/assests/images/Loading/loadingImage4.jpg" alt="">
+            <img src="/assests/images/Loading/loadingImage1.jpg" alt="">
+            <img src="/assests/images/Loading/loadingImage2.jpg" alt="">
+            <img src="/assests/images/Loading/loadingImage3.jpg" alt="">
+        </div>
+        <h1>loading<span>.</span><span>.</span><span>.</span></h1>
+    </section>
+    <!-- End Loading Sect -->
+
+    <script>
+        document.querySelector('main').style.height = `calc(100vh - ${document.querySelector('h1').getBoundingClientRect().height}px)`;
+    </script>
+    <script src="../general.js"></script>
+    <script src="menu.js"></script>
+</body>
+
+</html>

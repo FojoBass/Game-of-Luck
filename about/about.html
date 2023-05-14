@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../general.css">
+    <link rel="stylesheet" href="about.css">
+    <script src="/general.js" defer></script>
+    <title>GOL | Credit</title>
+</head>
+
+<body>
+    <header>
+        <h1>credit</h1>
+        <a href="../menu/menu.html">menu</a>
+    </header>
+
+    <main>
+        <div class="wrapper">
+            <p>created by FOJO</p>
+            <p>copyright © <span class='curr-year'></span> Game Of Luck All rights reserved.</p>
+        </div>
+    </main>
+
+    <script>
+        const currYear = new Date().getFullYear();
+        document.querySelector('.curr-year').textContent = currYear;
+
+        document.querySelector('main').style.height = `calc(100vh - ${document.querySelector('header').getBoundingClientRect().height}px)`;
+
+        document.querySelector('a').onclick = (e) => {
+        e.preventDefault();
+        clickSfx(e.currentTarget);
+        clickEff(e.currentTarget);
+    }
+    </script>
+</body>
+
+</html>
