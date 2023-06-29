@@ -61,12 +61,11 @@ let scoreData = { diff, passed: 0, rem, dd: 0, mm: 0, yy: 00, roundsRem: [] };
 let pRounds = 0;
 let data = {};
 
-
 // ON LOAD
 window.addEventListener('DOMContentLoaded', ini);
 
 // FUNCTIONS
-// Display Help 
+// Display Help
 function helpInfo() {
   helpBtn.onclick = () => {
     helpSect.classList.remove('hide');
@@ -76,8 +75,8 @@ function helpInfo() {
       helpSect.classList.add('hide');
       clickEff(closeHelpBtn);
       clickSfx(closeHelpBtn);
-    }
-  }
+    };
+  };
 }
 
 // Setup Game
@@ -92,7 +91,7 @@ gameSetup = () => {
       shp.classList.add('shp-slt');
       selectBtn.classList.remove('deac');
       initialSel = shp.dataset.shape;
-    }
+    };
   });
 
   selectBtn.onclick = () => {
@@ -101,23 +100,23 @@ gameSetup = () => {
     clickSfx(selectBtn);
     selectSect.classList.add('hide');
     diffSect.classList.remove('hide');
-  }
+  };
 
   // Difficulty Selection
   selDiffBtn.onclick = () => {
     clickEff(selDiffBtn);
     clickSfx(selDiffBtn);
-    diffOpts.forEach(opt => {
+    diffOpts.forEach((opt) => {
       if (opt.checked) diff = opt.value;
-    })
+    });
     diffSect.classList.add('hide');
     play(round);
-  }
-}
+  };
+};
 
-diffOpts.forEach(opt => {
+diffOpts.forEach((opt) => {
   opt.onchange = () => clickSfx(opt, true);
-})
+});
 
 // Main Gameplay
 play = (r) => {
@@ -127,18 +126,18 @@ play = (r) => {
   let firstSel = null;
   let secondSel = null;
 
-  shapeCons.forEach(con => {
+  shapeCons.forEach((con) => {
     let check = false;
 
     con.onclick = () => {
       clickSfx(con, true);
       if (diff === 'easy') {
         if (!con.classList.contains('active')) {
-          if (secondSel && secondSel.classList.contains('active')) check = true
+          if (secondSel && secondSel.classList.contains('active')) check = true;
           else check = false; // This is to prevent secondSel from un-highlighting after unselecting firstSel
 
           unselectAll(shapeCons, 'active');
-          if (check) secondSel.classList.add('active')
+          if (check) secondSel.classList.add('active');
 
           con.classList.add('active');
           if (!firstSel) {
@@ -172,10 +171,16 @@ play = (r) => {
       }
 
       // activate select btn
-      if (shapeCons[0].classList.contains('active') || shapeCons[1].classList.contains('active') || shapeCons[2].classList.contains('active') || shapeCons[3].classList.contains('active')) submitShp.classList.remove('deac')
+      if (
+        shapeCons[0].classList.contains('active') ||
+        shapeCons[1].classList.contains('active') ||
+        shapeCons[2].classList.contains('active') ||
+        shapeCons[3].classList.contains('active')
+      )
+        submitShp.classList.remove('deac');
       else submitShp.classList.add('deac');
-    }
-  })
+    };
+  });
 
   submitShp.onclick = () => {
     clickEff(submitShp);
@@ -184,21 +189,27 @@ play = (r) => {
     if (secondSel) secondSel.classList.add('show');
     submitShp.classList.add('deac');
     pauseBtn.classList.add('deac');
+    shapeCons.forEach((shp) => {
+      shp.classList.add('deac');
+    });
 
     setTimeout(() => {
       pauseBtn.classList.remove('deac');
+      shapeCons.forEach((shp) => {
+        shp.classList.remove('deac');
+      });
       shpSubmit(firstSel, secondSel);
-    }, 1800)
+    }, 1800);
   };
-}
+};
 
 play2 = (i) => {
   let shpInd = [];
 
   rNumCon.textContent = i;
-  for (; ;) {
+  for (;;) {
     const rNum = Math.floor(Math.random() * 4);
-    if (!shpInd.length) shpInd.push(rNum)
+    if (!shpInd.length) shpInd.push(rNum);
     else {
       if (!shpInd.includes(rNum)) {
         shpInd.push(rNum);
@@ -207,8 +218,9 @@ play2 = (i) => {
     }
   }
 
-  for (i = 0; i < shps.length; i++) shps[i].classList.add(`${shpId[shpInd[i]]}`);
-}
+  for (i = 0; i < shps.length; i++)
+    shps[i].classList.add(`${shpId[shpInd[i]]}`);
+};
 
 // Submit highlighted shapes
 shpSubmit = (f, s) => {
@@ -218,7 +230,7 @@ shpSubmit = (f, s) => {
   if (f) fShp = f.children[0].classList[1];
   if (s) sShp = s.children[0].classList[1];
 
-  if (fShp === selectedShp || sShp === selectedShp) checkShps(true)
+  if (fShp === selectedShp || sShp === selectedShp) checkShps(true);
   else checkShps(false);
 
   if (f) fShp = f.classList.remove('show');
@@ -226,7 +238,7 @@ shpSubmit = (f, s) => {
 
   setTimeout(() => {
     // Remove classes from shps i.e circle, square etc.
-    shps.forEach(shp => shp.classList.remove(shp.classList[1]));
+    shps.forEach((shp) => shp.classList.remove(shp.classList[1]));
 
     if (f) fShp = f.classList.remove('active');
     if (s) sShp = s.classList.remove('active');
@@ -236,7 +248,7 @@ shpSubmit = (f, s) => {
       round++;
       play(round);
     } else {
-      pRounds = gameData.roundsRem.filter(r => r === 'passed').length;
+      pRounds = gameData.roundsRem.filter((r) => r === 'passed').length;
       switch (pRounds) {
         case 0:
           rem = 'very unlucky';
@@ -256,12 +268,12 @@ shpSubmit = (f, s) => {
         case 5:
           rem = 'very lucky';
           break;
-      };
+      }
 
       rPassed.textContent = format(pRounds);
       remark.textContent = rem;
       finSect.classList.remove('hide');
-      if (rem.includes('unlucky')) remark.classList.add('unlucky')
+      if (rem.includes('unlucky')) remark.classList.add('unlucky');
       else if (rem.includes('lucky')) remark.classList.add('lucky');
 
       const date = new Date();
@@ -277,18 +289,18 @@ shpSubmit = (f, s) => {
       Storage.setScoreData(sScoreData);
       Storage.delGameData();
     }
-  }, 3600)
-}
+  }, 3600);
+};
 
 // Check highlighted shapes and seeked shape
 function checkShps(state) {
   alertSect.classList.remove('hide');
-  altMsg.classList.remove('failed')
-  if (state) altMsg.textContent = 'passed'
+  altMsg.classList.remove('failed');
+  if (state) altMsg.textContent = 'passed';
   else {
-    altMsg.classList.add('failed')
-    altMsg.textContent = 'failed'
-  };
+    altMsg.classList.add('failed');
+    altMsg.textContent = 'failed';
+  }
 
   gameData.currRound = round;
   gameData.roundsRem.push(altMsg.textContent);
@@ -303,11 +315,11 @@ function checkShps(state) {
 }
 
 // Remove style from all items in an array
-unselectAll = (es, c) => es.forEach(e => e.classList.remove(c));
+unselectAll = (es, c) => es.forEach((e) => e.classList.remove(c));
 
 // Formating
 function format(n) {
-  if (n === 1) return `${n} round`
+  if (n === 1) return `${n} round`;
   else return `${n} rounds`;
 }
 
@@ -333,78 +345,77 @@ function ini() {
     resumeBtn.onclick = () => {
       clickOps(resumeBtn);
       pauseSect.classList.add('hide');
-    }
+    };
 
     menuBtn.onclick = (e) => {
       e.preventDefault();
       clickOps(menuBtn);
       pauseSect.classList.add('hide');
-    }
+    };
 
     soundBtn.onclick = () => {
       clickOps(soundBtn);
       pauseSect.classList.add('hide');
       settingsSect.classList.remove('hide');
-    }
+    };
 
     // Yeah I know there were countless unnecessary repetitions. Well, I couldn't start refactoring my codes from the html to js, would take more time, so I took the easiest route. And no, I'm not a coward :)
-  }
+  };
 
   restartBtns.forEach((r) => {
     r.onclick = (e) => {
       e.preventDefault();
       clickOps(r);
       Storage.delGameData();
-    }
-  })
+    };
+  });
 
   document.querySelector('.menu-btn').onclick = (e) => {
     e.preventDefault();
     clickEff(e.currentTarget);
     clickSfx(e.currentTarget);
-  }
+  };
 
   // SET SOUND SETTINGS FUNCTIONALITY
   const settingsData = JSON.parse(Storage.getSettingsData());
 
-  settingsOpts.forEach(opt => {
+  settingsOpts.forEach((opt) => {
     opt.onclick = () => {
       clickSfx(opt);
-    }
+    };
     if (opt.value === 'music') opt.checked = settingsData.music;
     else if (opt.value === 'sfx') opt.checked = settingsData.sfx;
-  })
+  });
 
   applyBtn.onclick = (e) => {
     // const music = document.querySelector('audio');
-    clickSfx(e.currentTarget)
+    clickSfx(e.currentTarget);
     // clickEff(e.currentTarget)
-    settingsOpts.forEach(opt => {
+    settingsOpts.forEach((opt) => {
       if (opt.value === 'music') {
-        if (!opt.checked)
-          setMusicMute(true);
+        if (!opt.checked) setMusicMute(true);
         else setMusicMute(false);
       }
       if (opt.value === 'sfx') {
-        if (!opt.checked) clickSfxMute(true)
+        if (!opt.checked) clickSfxMute(true);
         else clickSfxMute(false);
       }
     });
 
     let mus;
     let sfx;
-    settingsOpts.forEach(opt => {
-      if (opt.value === 'music') mus = opt.checked
-      if (opt.value === 'sfx') sfx = opt.checked
-    })
+    settingsOpts.forEach((opt) => {
+      if (opt.value === 'music') mus = opt.checked;
+      if (opt.value === 'sfx') sfx = opt.checked;
+    });
     data = { music: mus, sfx };
     Storage.setSettingsData(data);
     settingsSect.classList.add('hide');
-  }
+  };
 }
 
 // UTILITY FUNCTIONS
 const clickOps = (e) => {
   clickEff(e);
   clickSfx(e);
-}
+};
